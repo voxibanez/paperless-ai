@@ -79,11 +79,11 @@ class OllamaService {
       // Try to parse the extracted JSON
       const result = JSON.parse(jsonStr);
 
-      // Validate and return structured data
-      return {
-        tags: Array.isArray(result.tags) ? result.tags : [],
-        correspondent: typeof result.correspondent === 'string' ? result.correspondent : null
-      };
+      // Validate structured data
+      result.tags = Array.isArray(result.tags) ? result.tags : [];  // Ensure tags is an array
+      result.correspondent = typeof result.correspondent === 'string' ? result.correspondent : null; // Ensure correspondent is a string
+
+      return result;
     } catch (error) {
       console.error('Error parsing Ollama response:', error);
       console.error('Raw response:', response);
